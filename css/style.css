@@ -3,6 +3,10 @@
     font-weight: 300;
 }
 
+html, body {
+    margin: auto;
+}
+
 strong {
     font-weight: 700;
 }
@@ -28,11 +32,16 @@ a:active, a:focus {
 
 .wrapper {
     position: absolute;
-    transform: translateY(40%);
     width: 100%;
+    top: 40%;
+    transform: translateY(-40%);
+
+    -webkit-animation-duration: 0.57s;
+    animation-duration: 0.7s;
 }
 
 .alert {
+    margin-top: 16px;
     display: block;
     padding: 16px;
     border-left: 5px solid;
@@ -44,6 +53,9 @@ a:active, a:focus {
     background-color: #F2D7D5;
     border-left-color: #C0392B;
     color: #C0392B;
+
+    -webkit-animation-duration: 0.5s;
+    animation-duration: 0.5s;
 }
 
 .alert > .alert-button {

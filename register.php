@@ -16,11 +16,11 @@
 		<div class="wrapper animated fadeIn">
 		    <div class="container">
 		        <div class="row">
-					<h1>Zaloguj się</h1>
-			        <h5 class="subtitle">do swojego konta</h5>
+					<h1>Zarejestruj się</h1>
+			        <h5 class="subtitle">wpisując swoje dane</h5>
 				</div>
 
-				<form action="authorization.php" method="post">
+				<form action="new_account.php" method="post">
 					<div class="row">
 						<label for="loginForm">Login</label>
 						<input class="u-full-width" type="text" placeholder="Wpisz tutaj swój login"
@@ -31,13 +31,18 @@
 						<input class="u-full-width" type="password" placeholder="Wpisz tutaj swoje hasło"
 						 id="passwordForm" name="password"/>
 					</div>
+                    <div class="row">
+						<label for="repeatForm">Powtórz hasło</label>
+						<input class="u-full-width" type="password" placeholder="Powtórz wpisane hasło"
+						 id="repeatForm" name="repeat"/>
+					</div>
 					</br>
 					<div class="row">
 						<div class="four columns">
-							<a class="button full-width" href="register.php">Zarejestruj się</a>
+							<a class="button full-width" href="index.php">Anuluj</a>
 						</div>
 						<div class="eight columns">
-							<input class="button-primary full-width" type="submit" value="Zaloguj się" />
+							<input class="button-primary full-width" type="submit" value="Zarejestruj się" />
 						</div>
 					</div>
 				</form>
@@ -52,7 +57,9 @@
 						$error = $_GET['error'];
 						if ($error == 'empty') {
 							echo 'Uzupełnij <strong>wszystkie</strong> pola!';
-						} else {
+						} else if ($error == 'different') {
+                            echo 'Podane hasła <strong>nie mogą</strong> się różnić!';
+                        } else {
 							echo 'Wystąpił <strong>inny</strong> błąd!';
 						}
 					?>
