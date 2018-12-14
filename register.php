@@ -46,7 +46,6 @@
 						</div>
 					</div>
 				</form>
-
 		    </div>
 		</div>
 
@@ -59,6 +58,8 @@
 							echo 'Uzupełnij <strong>wszystkie</strong> pola!';
 						} else if ($error == 'different') {
                             echo 'Podane hasła <strong>nie mogą</strong> się różnić!';
+						} else if ($error == 'wrong') {
+							echo 'Użytkownik o podanym loginie <strong>już istnieje</strong>!';
                         } else {
 							echo 'Wystąpił <strong>inny</strong> błąd!';
 						}
@@ -69,12 +70,19 @@
 		<?php endif; ?>
 
 		<script>
-			window.onload = function() {
+			function alertCallback() {
 				document.getElementById('alert').onclick = function() {
 					this.parentNode.classList.add('fadeOutUp');
 					return false;
 				};
-			};
+			}
+
+			setTimeout(function() {
+				document.getElementById('alert').parentNode.classList.add('fadeOutUp');
+				return false;
+			}, 3000);
+
+			window.onload = alertCallback();
 		</script>
 	</body>
 </html>

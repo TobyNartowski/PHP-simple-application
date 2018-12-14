@@ -45,13 +45,25 @@
 		    </div>
 		</div>
 
-		<?php if (isset($_GET['error'])) : ?>
+		<?php if (isset($_GET['info'])) : ?>
 			<div class="container">
-				<span class="alert alert-error animated fadeInDown">
+				<span class="alert
+				<?php
+					if ($_GET['info'] == 'success') {
+						echo 'alert-success';
+					} else {
+						echo 'alert-error';
+					}
+				?>
+				animated fadeInDown">
 					<?php
-						$error = $_GET['error'];
-						if ($error == 'empty') {
+						$info = $_GET['info'];
+						if ($info == 'empty') {
 							echo 'Uzupełnij <strong>wszystkie</strong> pola!';
+						} else if ($info == 'wrong') {
+							echo 'Podane dane są <strong>nieprawidłowe</strong>!';
+						} else if ($info == 'success') {
+							echo 'Rejestracja przebiegła <strong>pomyślnie</strong>. Możesz się teraz zalogować na swoje konto.';
 						} else {
 							echo 'Wystąpił <strong>inny</strong> błąd!';
 						}
@@ -62,12 +74,19 @@
 		<?php endif; ?>
 
 		<script>
-			window.onload = function() {
+			function alertCallback() {
 				document.getElementById('alert').onclick = function() {
 					this.parentNode.classList.add('fadeOutUp');
 					return false;
 				};
-			};
+			}
+
+			setTimeout(function() {
+				document.getElementById('alert').parentNode.classList.add('fadeOutUp');
+				return false;
+			}, 3000);
+
+			window.onload = alertCallback();
 		</script>
 	</body>
 </html>
