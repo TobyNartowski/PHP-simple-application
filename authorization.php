@@ -17,8 +17,18 @@
     $login = $_POST['login'];
     $password = $_POST['password'];
 
-    if (user_authorize($connection, $_POST['login'], $_POST['password'])) {
-        echo 'Logged';
+    $result = user_authorize($connection, $_POST['login'], $_POST['password']);
+    if ($result != '-1') {
+            if (!session_id()) {
+                session_start();
+            }
+
+            $_SESSION['user_id']  = $result;
+            $_SESSION['user_login'] = $login;
+
+            header('Location: dashboard.php');
+            mysqli_close($connection);
+            die();
     } else {
         header('Location: index.php?info=wrong');
         mysqli_close($connection);
@@ -34,24 +44,24 @@
        $sql_query_salt = "SELECT salt FROM users WHERE login = '" . $login . "'";
        $salt_result = mysqli_query($connection, $sql_query_salt);
        if (mysqli_num_rows($salt_result) == 0) {
-           return false;
+           return -1;
        }
 
        $sql_query_user = "SELECT * FROM users WHERE login = '" . $login . "'";
        $user_result = mysqli_query($connection, $sql_query_user);
        if (mysqli_num_rows($user_result) == 0) {
-           return false;
+           return -1;
        }
        $fetched_user = $user_result->fetch_assoc();
 
        $salt = $salt_result->fetch_assoc();
-       $entered_hash = hash('sha256', ($passwd . $salt["salt"]));
+       $entered_hash = hash('sha256', ($passwd . $salt['salt']));
 
        if ($entered_hash != $fetched_user['hash']) {
-           return false;
+           return -1;
        }
 
-       return true;
+       return $fetched_user['id'];
    }
 
    mysqli_close($connection);

@@ -72,3 +72,28 @@ a:active, a:focus {
     top: 0;
     right: 0;
 }
+
+/* navbar */
+.nav-bar {
+    background-color: #1EAEDB;
+    overflow: hidden;
+}
+
+.nav-bar a {
+    float: left;
+    color: white;
+    padding: 12px 16px;
+    font-size: 12px;
+    line-height: 2;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.nav-bar a:hover {
+    background-color: white;
+    color: #1EAEDB;
+}
+
+.nav-bar .right {
+    float: right;
+}
