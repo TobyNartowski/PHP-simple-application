@@ -22,10 +22,6 @@ a:active, a:focus {
     -moz-outline-style: none;
 }
 
-.subtitle {
-    margin-top: -16px;
-}
-
 .full-width {
     width: 100%;
 }
@@ -40,6 +36,31 @@ a:active, a:focus {
     animation-duration: 0.7s;
 }
 
+/* floating button */
+.float {
+    position: fixed;
+    width: 56px;
+    height: 56px;
+    text-align: center;
+    border-radius: 50px;
+    background-color: #F0F0F0;
+
+}
+
+.top {
+    left: 12px;
+    top: 12px;
+}
+
+.top-content {
+    margin-top: 20px;
+}
+
+.subtitle {
+    margin-top: -16px;
+}
+
+/* alert */
 .alert {
     margin-top: 16px;
     display: block;
@@ -74,14 +95,20 @@ a:active, a:focus {
 }
 
 /* navbar */
-.nav-bar {
+.logged {
     background-color: #1EAEDB;
+    color: white;
     overflow: hidden;
 }
 
-.nav-bar a {
+.unlogged {
+    background-color: #F0F0F0;
+    color: black;
+    overflow: hidden;
+}
+
+.nav-bar .nav-content {
     float: left;
-    color: white;
     padding: 12px 16px;
     font-size: 12px;
     line-height: 2;
@@ -89,11 +116,49 @@ a:active, a:focus {
     letter-spacing: 1px;
 }
 
-.nav-bar a:hover {
+.nav-bar .nav-button:hover {
     background-color: white;
     color: #1EAEDB;
 }
 
 .nav-bar .right {
     float: right;
+}
+
+/* page */
+.page-wrapper {
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+
+.page {
+    overflow: hidden;
+    padding: 16px;
+    border-radius: 12px;
+    margin-bottom: 12px;
+}
+
+.page h2 {
+    margin-bottom: 12px;
+}
+
+.page p {
+    margin-top: 16px;
+    text-align: justify;
+}
+
+.page .author {
+    float: right;
+    display: block;
+    font-style: normal;
+}
+
+.page .time {
+    color: #A0A0A0;
+}
+
+span {
+   display: block;
+   width: 100%;
+   border-top: 1px solid #ccc;
 }

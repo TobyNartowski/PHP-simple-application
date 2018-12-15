@@ -13,18 +13,18 @@
 	</head>
 
 	<body>
-		<a href="index.php" class="float top">
-			<i class="fas fa-arrow-left top-content"></i>
+		<a href="index.php" class="float top animated fadeInLeft">
+			<i class="fas fa-arrow-left top-content animated rotateIn"></i>
 		</a>
 
 		<div class="wrapper animated fadeIn">
 		    <div class="container">
 		        <div class="row">
-					<h1>Zarejestruj się</h1>
-			        <h5 class="subtitle">wpisz swoje dane, aby utworzyć nowe konto administratora</h5>
+					<h1>Zaloguj się</h1>
+			        <h5 class="subtitle">do swojego konta administratora</h5>
 				</div>
 
-				<form action="new_account.php" method="post">
+				<form action="authorization.php" method="post">
 					<div class="row">
 						<label for="loginForm">Login</label>
 						<input class="u-full-width" type="text" placeholder="Wpisz tutaj swój login"
@@ -35,36 +35,40 @@
 						<input class="u-full-width" type="password" placeholder="Wpisz tutaj swoje hasło"
 						 id="passwordForm" name="password"/>
 					</div>
-                    <div class="row">
-						<label for="repeatForm">Powtórz hasło</label>
-						<input class="u-full-width" type="password" placeholder="Powtórz wpisane hasło"
-						 id="repeatForm" name="repeat"/>
-					</div>
 					</br>
 					<div class="row">
 						<div class="four columns">
-							<a class="button full-width" href="login.php">Anuluj</a>
+							<a class="button full-width" href="register.php">Zarejestruj się</a>
 						</div>
 						<div class="eight columns">
-							<input class="button-primary full-width" type="submit" value="Zarejestruj się" />
+							<input class="button-primary full-width" type="submit" value="Zaloguj się" />
 						</div>
 					</div>
 				</form>
+
 		    </div>
 		</div>
 
-		<?php if (isset($_GET['error'])) : ?>
+		<?php if (isset($_GET['info'])) : ?>
 			<div class="container">
-				<span class="alert alert-error animated fadeInDown">
+				<span class="alert
+				<?php
+					if ($_GET['info'] == 'success') {
+						echo 'alert-success';
+					} else {
+						echo 'alert-error';
+					}
+				?>
+				animated fadeInDown">
 					<?php
-						$error = $_GET['error'];
-						if ($error == 'empty') {
+						$info = $_GET['info'];
+						if ($info == 'empty') {
 							echo 'Uzupełnij <strong>wszystkie</strong> pola!';
-						} else if ($error == 'different') {
-                            echo 'Podane hasła <strong>nie mogą</strong> się różnić!';
-						} else if ($error == 'wrong') {
-							echo 'Użytkownik o podanym loginie <strong>już istnieje</strong>!';
-                        } else {
+						} else if ($info == 'wrong') {
+							echo 'Podane dane są <strong>nieprawidłowe</strong>!';
+						} else if ($info == 'success') {
+							echo 'Rejestracja przebiegła <strong>pomyślnie</strong>. Możesz się teraz zalogować na swoje konto.';
+						} else {
 							echo 'Wystąpił <strong>inny</strong> błąd!';
 						}
 					?>

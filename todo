@@ -1,3 +1,4 @@
 error page
 logging out, session destroy, redirection from index, register if logged
 favicon, title
+cleanup redundant frameworks

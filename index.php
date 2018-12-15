@@ -1,3 +1,7 @@
+<?php
+    session_start();
+?>
+
 <html lang="pl">
 	<head>
 		<meta charset="utf-8">
@@ -13,80 +17,47 @@
 	</head>
 
 	<body>
-		<div class="wrapper animated fadeIn">
-		    <div class="container">
-		        <div class="row">
-					<h1>Zaloguj się</h1>
-			        <h5 class="subtitle">do swojego konta</h5>
-				</div>
+        <?php if (isset($_SESSION['user_login'])) : ?>
+            <nav class="nav-bar logged">
+                <div class="nav-content">Tryb administratora |
+                    <strong>
+                        <?php echo $_SESSION['user_login']; ?>
+                    </strong>
+                </div>
+                <a href="logout.php">
+                    <div class="nav-content nav-button right">Wyloguj się</div>
+                </a>
+            </nav>
+        <?php else : ?>
+                <nav class="nav-bar unlogged">
+                    <div class="nav-content">
+                        <strong>Mikroblog</strong> | PAI
+                    </div>
+                    <a href="login.php">
+                        <div class="nav-content nav-button right">Zaloguj się</div>
+                    </a>
+                </nav>
+        <?php endif; ?>
 
-				<form action="authorization.php" method="post">
-					<div class="row">
-						<label for="loginForm">Login</label>
-						<input class="u-full-width" type="text" placeholder="Wpisz tutaj swój login"
-						 id="loginForm" name="login"/>
-					</div>
-					<div class="row">
-						<label for="passwordForm">Hasło</label>
-						<input class="u-full-width" type="password" placeholder="Wpisz tutaj swoje hasło"
-						 id="passwordForm" name="password"/>
-					</div>
-					</br>
-					<div class="row">
-						<div class="four columns">
-							<a class="button full-width" href="register.php">Zarejestruj się</a>
-						</div>
-						<div class="eight columns">
-							<input class="button-primary full-width" type="submit" value="Zaloguj się" />
-						</div>
-					</div>
-				</form>
-
-		    </div>
-		</div>
-
-		<?php if (isset($_GET['info'])) : ?>
-			<div class="container">
-				<span class="alert
-				<?php
-					if ($_GET['info'] == 'success') {
-						echo 'alert-success';
-					} else {
-						echo 'alert-error';
-					}
-				?>
-				animated fadeInDown">
-					<?php
-						$info = $_GET['info'];
-						if ($info == 'empty') {
-							echo 'Uzupełnij <strong>wszystkie</strong> pola!';
-						} else if ($info == 'wrong') {
-							echo 'Podane dane są <strong>nieprawidłowe</strong>!';
-						} else if ($info == 'success') {
-							echo 'Rejestracja przebiegła <strong>pomyślnie</strong>. Możesz się teraz zalogować na swoje konto.';
-						} else {
-							echo 'Wystąpił <strong>inny</strong> błąd!';
-						}
-					?>
-					<i id="alert" class="alert-button far fa-times-circle fa-lg"></i>
-				</span>
-			</div>
-		<?php endif; ?>
-
-		<script>
-			function alertCallback() {
-				document.getElementById('alert').onclick = function() {
-					this.parentNode.classList.add('fadeOutUp');
-					return false;
-				};
-			}
-
-			setTimeout(function() {
-				document.getElementById('alert').parentNode.classList.add('fadeOutUp');
-				return false;
-			}, 3000);
-
-			window.onload = alertCallback();
-		</script>
+        <div class="container animated fadeIn">
+            <div class="page-wrapper">
+                <div class="page">
+                    <h2>Heading one</h2>
+                    <span>
+                        <p class="content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus at ligula eu erat egestas fermentum. Maecenas facilisis magna id lectus vestibulum laoreet. Ut nibh urna, porta nec finibus vehicula, eleifend vitae magna. Vivamus sodales, risus nec pellentesque porta, ex nisi volutpat nulla, sit amet ornare orci ligula nec erat.</p>
+                        <i class="time">Ostatnia zmiana: 14 grudnia 2018</i>
+                        <i class="author">Autor: <strong>Author</strong></i>
+                    </span>
+                </div>
+                <div class="page">
+                    <h2>Heading two</h2>
+                    <span>
+                        <p class="content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus at ligula eu erat egestas fermentum. Maecenas facilisis magna id lectus vestibulum laoreet. Ut nibh urna, porta nec finibus vehicula, eleifend vitae magna. Vivamus sodales, risus nec pellentesque porta, ex nisi volutpat nulla, sit amet ornare orci ligula nec erat.</p>
+                        <i class="time">Ostatnia zmiana: 14 grudnia 2018</i>
+                        <i class="author">Autor: <strong>Different</strong></i>
+                    </span>
+                </div>
+            </div>
+        </div>
 	</body>
 </html>

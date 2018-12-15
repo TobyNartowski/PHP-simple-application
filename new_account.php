@@ -19,11 +19,11 @@
     $password = htmlentities($_POST['password'], ENT_QUOTES, "UTF-8");
 
     if (database_user_create($connection, $login, $password)) {
-        header('Location: index.php?info=success');
+        header('Location: login.php?info=success');
         mysqli_close($connection);
         die();
     } else {
-        header('Location: register.php?error=wrong');
+        header('Location: login.php?error=wrong');
         mysqli_close($connection);
         die();
     }
