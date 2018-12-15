@@ -25,7 +25,17 @@
     }
 
     if (!empty($_POST['modify']) && $_POST['modify']) {
-        echo 'Modify: ' . $_POST['modify'];
+        session_start();
+
+        if (fetch_page_data($connection, $_POST['modify'])) {
+            mysqli_close($connection);
+            header('Location: edit_page.php');
+            die();
+        } else {
+            mysqli_close($connection);
+            header('Location: index.php?info=failure');
+            die();
+        }
     }
 
     function delete_page($connection, $id) {
@@ -35,6 +45,23 @@
         }
 
         return true;
+    }
+
+    function fetch_page_data($connection, $id) {
+        $sql = 'SELECT name, content, author FROM pages WHERE id = ' . $id;
+        $result = mysqli_query($connection, $sql);
+
+        if (mysqli_num_rows($result) > 0) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                $_SESSION['page_id'] = $id;
+                $_SESSION['page_name'] = $row['name'];
+                $_SESSION['page_content'] = $row['content'];
+                $_SESSION['page_author'] = $row['author'];
+            }
+            return true;
+        }
+
+        return false;
     }
 
     mysqli_close($connection);

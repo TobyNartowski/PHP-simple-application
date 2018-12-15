@@ -9,23 +9,35 @@
 
     if (empty($_POST['name']) || empty($_POST['content'])) {
         mysqli_close($connection);
-        header('Location: new_page.php?info=empty');
+        echo $_SESSION['page_id'];
+        if (empty($_SESSION['page_id'])) {
+            header('Location: new_page.php?info=empty');
+        } else {
+            header('Location: edit_page.php?info=empty');
+        }
         die();
     }
 
     $name = htmlentities($_POST['name'], ENT_QUOTES, "UTF-8");
     $content = htmlentities($_POST['content'], ENT_QUOTES, "UTF-8");
 
-    if (page_add($connection, $name, $content, $_SESSION['user_login'])) {
-        mysqli_close($connection);
+    $error = true;
+    if (!empty($_SESSION['page_id'])) {
+        $error = page_add($connection, $name, $content, $_SESSION['user_login']);
+    } else {
+        $error = page_update($connection, $name, $content);
+    }
+    mysqli_close($connection);
+/*
+    if ($error) {
         header('Location: index.php?info=success');
         die();
     } else {
-        mysqli_close($connection);
+        unset_session();
         header('Location: index.php?info=failure');
         die();
     }
-
+*/
     function page_add($connection, $name, $content, $author) {
         mysqli_query($connection, pages_table_create());
 
@@ -42,5 +54,22 @@
         return true;
     }
 
-    mysqli_close($connection);
+    function page_update($connection, $name, $content) {
+        $sql = "UPDATE pages SET name = '" . $name . "', content = '" . $content . "', creation = now() WHERE id = " . $_SESSION['page_id'];
+        unset_session();
+
+        if (mysqli_query($connection, $sql)) {
+            return true;
+        }
+
+
+        return false;
+    }
+
+    function unset_session() {
+        unset($_SESSION['page_id']);
+        unset($_SESSION['page_name']);
+        unset($_SESSION['page_content']);
+        unset($_SESSION['page_author']);
+    }
 ?>
