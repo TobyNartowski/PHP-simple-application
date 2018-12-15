@@ -22,7 +22,6 @@
         </a>
 
         <div class="wrapper">
-
             <div class="container
                 <?php
                     if (!isset($_GET['info'])) {

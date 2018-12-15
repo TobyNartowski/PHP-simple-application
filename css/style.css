@@ -31,9 +31,29 @@ a:active, a:focus {
     width: 100%;
     top: 40%;
     transform: translateY(-40%);
+}
 
-    -webkit-animation-duration: 0.7s;
-    animation-duration: 0.7s;
+.fa-button {
+    background: none;
+    padding: 0px;
+    border: none;
+    float: right;
+    padding-right: 8px;
+    margin-top: 36px;
+}
+
+.fa-button:hover {
+    color: #1EAEDB;
+}
+
+.center-title {
+    width: 100%;
+    text-align: center;
+    margin-top: 32px;
+}
+
+.subtitle {
+    margin-top: -16px;
 }
 
 /* floating button */
@@ -44,7 +64,6 @@ a:active, a:focus {
     text-align: center;
     border-radius: 50px;
     background-color: #F0F0F0;
-
 }
 
 .top {
@@ -65,8 +84,9 @@ a:active, a:focus {
     margin-top: 20px;
 }
 
-.subtitle {
-    margin-top: -16px;
+.container {
+    -webkit-animation-duration: 0.7s;
+    animation-duration: 0.7s;
 }
 
 /* alert */
@@ -78,9 +98,10 @@ a:active, a:focus {
     position: relative;
     bottom: 0;
 
-    -webkit-animation-duration: 0.5s;
-    animation-duration: 0.5s;
+    -webkit-animation-duration: 0.4s;
+    animation-duration: 0.4s;
 }
+
 
 .alert-success {
     background-color: #D5F5E3;

@@ -34,7 +34,7 @@
                         <strong>Mikroblog</strong> | PAI
                     </div>
                     <a href="login.php">
-                        <div class="nav-content nav-button right">Zaloguj się</div>
+                        <div class="nav-content nav-button right"><strong>Zaloguj się</strong></div>
                     </a>
                 </nav>
         <?php endif; ?>
@@ -74,20 +74,39 @@
                     die('Błąd przy połączeniu z bazą danych: ' . mysqli_connect_error());
                 }
 
-               $result = mysqli_query($connection, "SELECT name, content, author, creation FROM pages ORDER BY creation");
+               $result = mysqli_query($connection, "SELECT id, name, content, author, creation FROM pages ORDER BY creation");
                if (mysqli_num_rows($result) > 0) {
                    while ($row = mysqli_fetch_assoc($result)) {
                        echo '<div class="page">';
-                       echo '<h2>' . $row['name'] . '</h2>';
-                       echo '<span>';
-                       echo '<p class="content">' . $row['content'] . '</p>';
-                       echo '<i class="time">Ostatnia zmiana: ' . $row['creation'] . '</i>';
-                       echo '<i class="author">Autor: <strong>' . $row['author'] . '</strong></i>';
-                       echo '</span>';
-                       echo '</div>';
+
+                        if (isset($_SESSION['user_login'])) {
+                            echo '<form action="modify_page.php" method="post">';
+                            echo '<button type="submit" name="delete" value="' . $row['id'] . '" class="fa-button">';
+                            echo '<i class="far fa-times-circle fa-2x"></i>';
+                            echo '</button>';
+                            echo '<button type="submit" name="modify" value="' . $row['id'] . '" class="fa-button">';
+                            echo '<i class="far fa-edit fa-2x"></i>';
+                            echo '</button>';
+                            echo '</form>';
+                        }
+
+                        echo '<h2>' . $row['name'] . '</h2>';
+                        echo '<span>';
+                        echo '<p class="content">' . $row['content'] . '</p>';
+                        echo '<i class="time">Ostatnia zmiana: ' . $row['creation'] . '</i>';
+                        echo '<i class="author">Autor: <strong>' . $row['author'] . '</strong></i>';
+                        echo '</span>';
+                        echo '</div>';
                    }
                } else {
-                    echo '<h3>Brak dodanych stron.</h3>';
+                    echo '<div class="center-title">';
+                    echo '<h3>Brak stron.</h3>';
+                    if (isset($_SESSION['user_login'])) {
+                        echo '<h5 class="subtitle">Dodaj pierwszą stronę klikając na znak plusa w prawym dolnym rogu.</h5>';
+                    } else {
+                        echo '<h5 class="subtitle">Zaloguj się, aby dodać pierwszą stronę.</h5>';
+                    }
+                    echo '</div>';
                }
 
                mysqli_close($connection);
