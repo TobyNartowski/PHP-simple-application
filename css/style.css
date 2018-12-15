@@ -32,7 +32,7 @@ a:active, a:focus {
     top: 40%;
     transform: translateY(-40%);
 
-    -webkit-animation-duration: 0.57s;
+    -webkit-animation-duration: 0.7s;
     animation-duration: 0.7s;
 }
 
@@ -53,6 +53,15 @@ a:active, a:focus {
 }
 
 .top-content {
+    margin-top: 20px;
+}
+
+.bottom {
+    bottom: 48px;
+    right: 48px;
+}
+
+.bottom-content {
     margin-top: 20px;
 }
 
@@ -157,8 +166,14 @@ a:active, a:focus {
     color: #A0A0A0;
 }
 
-span {
+.page span {
    display: block;
    width: 100%;
    border-top: 1px solid #ccc;
+}
+
+textarea {
+    resize: none;
+    height: 256px;
+    font-size: 13px;
 }

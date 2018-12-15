@@ -6,11 +6,13 @@
     }
 
     if (empty($_POST['login']) || empty($_POST['password']) || empty($_POST['repeat'])) {
+        mysqli_close($connection);
         header('Location: register.php?error=empty');
         die();
     }
 
     if ($_POST['password'] != $_POST['repeat']) {
+        mysqli_close($connection);
         header('Location: register.php?error=different');
         die();
     }
@@ -19,12 +21,12 @@
     $password = htmlentities($_POST['password'], ENT_QUOTES, "UTF-8");
 
     if (database_user_create($connection, $login, $password)) {
-        header('Location: login.php?info=success');
         mysqli_close($connection);
+        header('Location: login.php?info=success');
         die();
     } else {
-        header('Location: login.php?error=wrong');
         mysqli_close($connection);
+        header('Location: register.php?error=wrong');
         die();
     }
 

@@ -6,8 +6,8 @@
     }
 
     if (empty($_POST['login']) || empty($_POST['password'])) {
-        header('Location: login.php?info=empty');
         mysqli_close($connection);
+        header('Location: login.php?info=empty');
         die();
     }
 
@@ -26,12 +26,12 @@
             $_SESSION['user_id']  = $result;
             $_SESSION['user_login'] = $login;
 
-            header('Location: index.php');
             mysqli_close($connection);
+            header('Location: index.php');
             die();
     } else {
-        header('Location: login.php?info=wrong');
         mysqli_close($connection);
+        header('Location: login.php?info=wrong');
         die();
     }
 

@@ -39,25 +39,83 @@
                 </nav>
         <?php endif; ?>
 
+        <?php if (isset($_GET['info'])) : ?>
+			<div class="container">
+				<span class="alert
+				<?php
+					if ($_GET['info'] == 'success') {
+						echo 'alert-success';
+					} else {
+						echo 'alert-error';
+					}
+				?>
+				animated fadeInDown">
+					<?php
+						$info = $_GET['info'];
+						if ($info == 'success') {
+							echo 'Operacja przebiegła <strong>prawidłowo</strong>!';
+						} else if ($info == 'failure') {
+							echo '<strong>Błąd</strong> przy wykonywaniu operacji!';
+						} else {
+							echo 'Wystąpił <strong>inny</strong> błąd!';
+						}
+					?>
+					<i id="alert" class="alert-button far fa-times-circle fa-lg"></i>
+				</span>
+			</div>
+		<?php endif; ?>
+
         <div class="container animated fadeIn">
             <div class="page-wrapper">
-                <div class="page">
-                    <h2>Heading one</h2>
-                    <span>
-                        <p class="content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus at ligula eu erat egestas fermentum. Maecenas facilisis magna id lectus vestibulum laoreet. Ut nibh urna, porta nec finibus vehicula, eleifend vitae magna. Vivamus sodales, risus nec pellentesque porta, ex nisi volutpat nulla, sit amet ornare orci ligula nec erat.</p>
-                        <i class="time">Ostatnia zmiana: 14 grudnia 2018</i>
-                        <i class="author">Autor: <strong>Author</strong></i>
-                    </span>
-                </div>
-                <div class="page">
-                    <h2>Heading two</h2>
-                    <span>
-                        <p class="content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus at ligula eu erat egestas fermentum. Maecenas facilisis magna id lectus vestibulum laoreet. Ut nibh urna, porta nec finibus vehicula, eleifend vitae magna. Vivamus sodales, risus nec pellentesque porta, ex nisi volutpat nulla, sit amet ornare orci ligula nec erat.</p>
-                        <i class="time">Ostatnia zmiana: 14 grudnia 2018</i>
-                        <i class="author">Autor: <strong>Different</strong></i>
-                    </span>
-                </div>
+            <?php
+                require_once('connection.php');
+                $connection = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
+                if (!$connection) {
+                    die('Błąd przy połączeniu z bazą danych: ' . mysqli_connect_error());
+                }
+
+               $result = mysqli_query($connection, "SELECT name, content, author, creation FROM pages ORDER BY creation");
+               if (mysqli_num_rows($result) > 0) {
+                   while ($row = mysqli_fetch_assoc($result)) {
+                       echo '<div class="page">';
+                       echo '<h2>' . $row['name'] . '</h2>';
+                       echo '<span>';
+                       echo '<p class="content">' . $row['content'] . '</p>';
+                       echo '<i class="time">Ostatnia zmiana: ' . $row['creation'] . '</i>';
+                       echo '<i class="author">Autor: <strong>' . $row['author'] . '</strong></i>';
+                       echo '</span>';
+                       echo '</div>';
+                   }
+               } else {
+                    echo '<h3>Brak dodanych stron.</h3>';
+               }
+
+               mysqli_close($connection);
+             ?>
             </div>
         </div>
+
+        <?php if (isset($_SESSION['user_login'])) : ?>
+            <a href="new_page.php" class="float bottom">
+                <i class="fas fa-plus bottom-content animated rotateIn"></i>
+            </a>
+        <?php endif; ?>
+
+
+        <script>
+            function alertCallback() {
+                document.getElementById('alert').onclick = function() {
+                    this.parentNode.classList.add('fadeOutUp');
+                    return false;
+                };
+            }
+
+            setTimeout(function() {
+                document.getElementById('alert').parentNode.classList.add('fadeOutUp');
+                return false;
+            }, 3000);
+
+            window.onload = alertCallback();
+        </script>
 	</body>
 </html>
