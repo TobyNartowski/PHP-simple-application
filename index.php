@@ -1,5 +1,8 @@
 <?php
     session_start();
+
+    require_once('connection.php');
+    check_ip();
 ?>
 
 <html lang="pl">

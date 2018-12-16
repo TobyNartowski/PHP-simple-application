@@ -1,4 +1,6 @@
 <?php
+    require_once('connection.php');
+    check_ip();
     session_start();
 
     if (!isset($_SESSION['user_login'])) {
@@ -6,7 +8,6 @@
         die();
     }
 
-    require_once('connection.php');
     $connection = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
     if (!$connection) {
         die('Błąd przy połączeniu z bazą danych: ' . mysqli_connect_error());

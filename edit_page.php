@@ -1,6 +1,8 @@
 <?php
-    session_start();
+    require_once('connection.php');
+    check_ip();
 
+    session_start();
     if (!isset($_SESSION['user_login'])) {
         header("Location: index.php");
         die();

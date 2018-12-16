@@ -1,5 +1,7 @@
 <?php
     require_once('connection.php');
+    check_ip();
+
     $connection = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
     if (!$connection) {
         die('Błąd przy połączeniu z bazą danych: ' . mysqli_connect_error());

@@ -1,3 +1,8 @@
+<?php
+	require_once('connection.php');
+	check_ip();
+?>
+
 <html lang="pl">
 	<head>
 		<meta charset="utf-8">
