@@ -1,11 +1,16 @@
 <?php
+    session_start();
+
+    if (!isset($_SESSION['user_login'])) {
+        header("Location: index.php");
+        die();
+    }
+
     require_once('connection.php');
     $connection = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
     if (!$connection) {
         die('Błąd przy połączeniu z bazą danych: ' . mysqli_connect_error());
     }
-
-    session_start();
 
     if (empty($_POST['name']) || empty($_POST['content'])) {
         mysqli_close($connection);

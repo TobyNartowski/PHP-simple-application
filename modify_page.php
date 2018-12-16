@@ -1,4 +1,11 @@
 <?php
+    session_start();
+
+    if (!isset($_SESSION['user_login'])) {
+        header("Location: index.php");
+        die();
+    }
+
     require_once('connection.php');
     $connection = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
     if (!$connection) {
@@ -25,8 +32,6 @@
     }
 
     if (!empty($_POST['modify']) && $_POST['modify']) {
-        session_start();
-
         if (fetch_page_data($connection, $_POST['modify'])) {
             mysqli_close($connection);
             header('Location: edit_page.php?');
