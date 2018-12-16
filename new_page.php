@@ -29,7 +29,7 @@
                     }
                 ?>
             ">
-                <form action="add_page.php" method="post">
+                <form action="add_page.php?modify=false" method="post">
                     <h1>Dodaj nową stronę</h1>
                     <div class="row">
                         <label for="pageName">Nazwa</label>

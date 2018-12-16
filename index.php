@@ -74,6 +74,9 @@
                     die('Błąd przy połączeniu z bazą danych: ' . mysqli_connect_error());
                 }
 
+                mysqli_query($connection, users_table_create());
+                mysqli_query($connection, pages_table_create());
+
                $result = mysqli_query($connection, "SELECT id, name, content, author, creation FROM pages ORDER BY creation DESC");
                if (mysqli_num_rows($result) > 0) {
                    while ($row = mysqli_fetch_assoc($result)) {

@@ -9,8 +9,7 @@
 
     if (empty($_POST['name']) || empty($_POST['content'])) {
         mysqli_close($connection);
-        echo $_SESSION['page_id'];
-        if (empty($_SESSION['page_id'])) {
+        if ($_GET['modify'] == 'false') {
             header('Location: new_page.php?info=empty');
         } else {
             header('Location: edit_page.php?info=empty');
@@ -22,22 +21,22 @@
     $content = htmlentities($_POST['content'], ENT_QUOTES, "UTF-8");
 
     $error = true;
-    if (!empty($_SESSION['page_id'])) {
+    if ($_GET['modify'] == 'false') {
         $error = page_add($connection, $name, $content, $_SESSION['user_login']);
     } else {
         $error = page_update($connection, $name, $content);
     }
+
     mysqli_close($connection);
-/*
+
     if ($error) {
         header('Location: index.php?info=success');
         die();
     } else {
-        unset_session();
         header('Location: index.php?info=failure');
         die();
     }
-*/
+
     function page_add($connection, $name, $content, $author) {
         mysqli_query($connection, pages_table_create());
 
@@ -61,7 +60,6 @@
         if (mysqli_query($connection, $sql)) {
             return true;
         }
-
 
         return false;
     }

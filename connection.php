@@ -16,7 +16,7 @@
     function pages_table_create() {
         return "CREATE TABLE IF NOT EXISTS pages (
             id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-            name VARCHAR(128) UNIQUE NOT NULL,
+            name VARCHAR(128) NOT NULL,
             content VARCHAR(65536) NOT NULL,
             author VARCHAR(128) NOT NULL,
             creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP

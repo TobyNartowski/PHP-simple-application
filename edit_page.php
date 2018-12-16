@@ -29,7 +29,7 @@
                     }
                 ?>
             ">
-                <form action="add_page.php" method="post">
+                <form action="add_page.php?modify=true" method="post">
                     <h1>Edytuj stronę "<?php echo $_SESSION['page_name']; ?>"</h1>
                     <div class="row">
                         <label for="pageName">Nazwa</label>

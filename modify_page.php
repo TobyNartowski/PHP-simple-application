@@ -29,7 +29,7 @@
 
         if (fetch_page_data($connection, $_POST['modify'])) {
             mysqli_close($connection);
-            header('Location: edit_page.php');
+            header('Location: edit_page.php?');
             die();
         } else {
             mysqli_close($connection);
