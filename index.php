@@ -80,7 +80,7 @@
                 mysqli_query($connection, users_table_create());
                 mysqli_query($connection, pages_table_create());
 
-               $result = mysqli_query($connection, "SELECT id, name, content, author, creation FROM pages ORDER BY creation DESC");
+               $result = mysqli_query($connection, "SELECT id, name, content, author, creation, is_link FROM pages ORDER BY creation DESC");
                if (mysqli_num_rows($result) > 0) {
                    while ($row = mysqli_fetch_assoc($result)) {
                        echo '<div class="page">';
@@ -98,7 +98,11 @@
 
                         echo '<h2>' . $row['name'] . '</h2>';
                         echo '<span>';
-                        echo '<p class="content">' . $row['content'] . '</p>';
+                        if ($row['is_link'] == 1) {
+                            echo '<object type="text/html" data="' . $row['content'] . '"></object>';
+                        } else {
+                            echo '<p class="content">' . $row['content'] . '</p>';
+                        }
                         echo '<i class="time">Ostatnia zmiana: ' . $row['creation'] . '</i>';
                         echo '<i class="author">Autor: <strong>' . $row['author'] . '</strong></i>';
                         echo '</span>';
@@ -117,7 +121,7 @@
 
                mysqli_close($connection);
              ?>
-            </div>
+         </div>
         </div>
 
         <?php if (isset($_SESSION['user_login'])) : ?>

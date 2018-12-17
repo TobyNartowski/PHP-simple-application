@@ -198,3 +198,8 @@ textarea {
     height: 256px;
     font-size: 13px;
 }
+
+object {
+    width: 100%;
+    height: 600px;
+}

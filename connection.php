@@ -37,7 +37,8 @@
             name VARCHAR(128) NOT NULL,
             content VARCHAR(65536) NOT NULL,
             author VARCHAR(128) NOT NULL,
-            creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            is_link TINYINT(1) DEFAULT 0
         )";
     }
 ?>

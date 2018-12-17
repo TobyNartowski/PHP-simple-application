@@ -23,14 +23,19 @@
         die();
     }
 
-    $name = htmlentities($_POST['name'], ENT_QUOTES, "UTF-8");
-    $content = htmlentities($_POST['content'], ENT_QUOTES, "UTF-8");
+    $link = 0;
+    if (filter_var($_POST['content'], FILTER_VALIDATE_URL)) {
+        $link = 1;
+    }
+
+    $name = $_POST['name'];
+    $content = $_POST['content'];
 
     $error = true;
     if ($_GET['modify'] == 'false') {
-        $error = page_add($connection, $name, $content, $_SESSION['user_login']);
+        $error = page_add($connection, $name, $content, $link, $_SESSION['user_login']);
     } else {
-        $error = page_update($connection, $name, $content);
+        $error = page_update($connection, $name, $content, $link);
     }
 
     mysqli_close($connection);
@@ -43,14 +48,14 @@
         die();
     }
 
-    function page_add($connection, $name, $content, $author) {
+    function page_add($connection, $name, $content, $link, $author) {
         mysqli_query($connection, pages_table_create());
 
         $name = mysqli_real_escape_string($connection, $name);
         $content = mysqli_real_escape_string($connection, $content);
 
-        $sql_insert = "INSERT INTO pages (name, content, author)
-        VALUES ('" . $name . "', '" . $content . "', '" . $author . "')";
+        $sql_insert = "INSERT INTO pages (name, content, is_link, author)
+        VALUES ('" . $name . "', '" . $content . "', " . $link . ", '" . $author . "')";
 
         if  (!mysqli_query($connection, $sql_insert)) {
             return false;
@@ -59,8 +64,8 @@
         return true;
     }
 
-    function page_update($connection, $name, $content) {
-        $sql = "UPDATE pages SET name = '" . $name . "', content = '" . $content . "', creation = now() WHERE id = " . $_SESSION['page_id'];
+    function page_update($connection, $name, $content, $link) {
+        $sql = "UPDATE pages SET name = '" . $name . "', content = '" . $content . "', is_link = '" . $link . "', creation = now() WHERE id = " . $_SESSION['page_id'];
         unset_session();
 
         if (mysqli_query($connection, $sql)) {
